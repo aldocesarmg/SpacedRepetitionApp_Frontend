@@ -1,18 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [user, setUser] = useState(null);
 
     const handleSubmit = (event) => {
         event.preventDefault(); // avoids default behavior of browsers: send data and then reload the page
-        
-        console.log('Correo electrónico:', email);
-        console.log('Contraseña:', password);
-        
-        console.log('Formulario enviado');
+        setIsSubmitting(true); // Trigger the useEffect
+        // console.log('Correo electrónico:', email);
+        // console.log('Contraseña:', password);
     };
+
+    useEffect(() => {
+        if (isSubmitting) {
+            const dataToSend = {
+                "username" : email,
+                "password" : password
+            }
+
+            console.log(JSON.stringify(dataToSend));
+
+            fetch('http://localhost:3000/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                },
+                body: JSON.stringify(dataToSend) // converts javascript object to json string
+            })
+            .then(response => response.json())
+            .then(data => console.log(`Respuesta del servidor: ${data.responseText}`))
+            .catch(error => console.log(`Error al enviar la solicitud: ${error}`))
+        }
+    });
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
