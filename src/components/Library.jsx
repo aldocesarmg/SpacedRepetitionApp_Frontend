@@ -17,11 +17,13 @@ const Library = () => {
     ];
 
     return(
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {mazos.map((item) => (
-                <CardMazos title={item.title} terms={item.terms} bgColor={item.bgColor} />
-          ))}
-        </div>
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                {mazos.map((item) => (
+                    <CardMazos title={item.title} terms={item.terms} bgColor={item.bgColor} />
+            ))}
+            </div>
+        </main>
     );
 }
 
