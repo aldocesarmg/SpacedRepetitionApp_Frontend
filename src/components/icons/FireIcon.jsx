@@ -1,8 +1,8 @@
-import './FireIcon.css';
+import './Generic.css';
 
 const FireIcon = () => {
     return(
-        <svg className='fire-icon' width="800px" height="800px" viewBox="-3 0 32 32" version="1.1">
+        <svg className='generic' width="800px" height="800px" viewBox="-3 0 32 32" version="1.1">
             <title>fire-2</title>
             <desc>Created with Sketch Beta.</desc>
             <defs></defs>

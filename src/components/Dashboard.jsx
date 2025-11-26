@@ -1,6 +1,9 @@
 import React from 'react';
 
 import FireIcon from './icons/FireIcon';
+import SearchIcon from './icons/SearchIcon';
+
+import CardMazos from './CardMazos';
 //import { FireIconSVG as SVGIcon} from './svgs/fire-icon.svg';
 // Asume que tienes iconos SVG para usar, como de Lucide React o Heroicons
 // import { Home, Library, Share2, Users, Star, Plus, Folder, Settings, LogOut, HelpCircle, ChevronRight } from 'lucide-react'; 
@@ -102,11 +105,10 @@ const MainContent = () => {
     <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
       <h1 className="text-3xl font-bold text-gray-800 mb-4 pl-4 flex justify-start">Recientes</h1>
       
-      {/* Tarjetas de Contenido (Flashcards folders) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card title="PEDIATRIA ENARM" terms="240 términos" bgColor="bg-blue-100" />
-        <Card title="GINECOLOGÍA ENARM" terms="543 términos" bgColor="bg-pink-100" />
-        <Card title="MI ENARM" terms="876 términos" bgColor="bg-yellow-100" />
+        <CardMazos title="PEDIATRIA ENARM" terms="240 términos" bgColor="bg-blue-100" />
+        <CardMazos title="GINECOLOGÍA ENARM" terms="543 términos" bgColor="bg-pink-100" />
+        <CardMazos title="MI ENARM" terms="876 términos" bgColor="bg-yellow-100" />
       </div>
 
       <h1 className="text-3xl font-bold text-gray-800 mb-6 pl-4 flex justify-start">Estadísticas</h1>
@@ -149,25 +151,6 @@ const MainContent = () => {
         </div>
       </div>
     </main>
-  );
-};
-
-// Componente de Tarjeta Reutilizable
-const Card = ({ title, terms, bgColor }) => {
-  return (
-    <div className={`${bgColor} p-6 rounded-lg shadow-md flex justify-center items-center cursor-pointer hover:shadow-lg transition duration-300`}>
-      <div>
-        <h2 className="text-lg font-bold text-gray-800">{title}</h2>
-        <p className="text-sm text-gray-600">{terms}</p>
-        <div className="flex justify-center mt-3 space-x-2">
-          <div className="w-6 h-6 bg-pink-300 rounded-full flex items-center justify-center text-xs font-semibold">J</div>
-          <div className="w-6 h-6 bg-blue-300 rounded-full flex items-center justify-center text-xs font-semibold">K</div>
-          <div className="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-semibold">S</div> 
-        </div>
-      </div>
-      {/* Arrow Right Icon Placeholder */}
-      <span className="w-6 h-6 text-gray-500"></span>
-    </div>
   );
 };
 
