@@ -4,6 +4,7 @@ import Home from './components/Home.jsx';
 import Library from './components/Library.jsx';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
+import Study from './components/Study.jsx';
 
 import { Routes, Route } from 'react-router-dom';
 
@@ -13,8 +14,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} >
           <Route index element={<Home />} />
-          <Route path="library" element={<Library />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/study/:title" element={<Study />} />
         </Route>
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
 

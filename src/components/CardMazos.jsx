@@ -1,7 +1,8 @@
-// Componente de Tarjeta Reutilizable
-const CardMazos = ({ title, terms, bgColor }) => {
+import { Link } from "react-router-dom";
+const CardMazos = ({ title, terms, bgColor, onClick }) => {
+// onClick={onClick}
   return (
-    <div className={`${bgColor} p-6 rounded-lg shadow-md flex justify-center items-center cursor-pointer hover:shadow-lg transition duration-300`}>
+    <Link to={"/study/"+title} key={title} className={`${bgColor} p-6 rounded-lg shadow-md flex justify-center items-center cursor-pointer hover:shadow-lg transition duration-300`}>
       <div>
         <h2 className="text-lg font-bold text-gray-800">{title}</h2>
         <p className="text-sm text-gray-600">{terms}</p>
@@ -13,7 +14,7 @@ const CardMazos = ({ title, terms, bgColor }) => {
       </div>
       {/* Arrow Right Icon Placeholder */}
       <span className="w-6 h-6 text-gray-500"></span>
-    </div>
+    </Link>
   );
 };
 
