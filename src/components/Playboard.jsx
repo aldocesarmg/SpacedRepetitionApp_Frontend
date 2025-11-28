@@ -1,6 +1,6 @@
 import React from 'react';
 import { Settings, Maximize2 } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
 // import UterusIcon from './UterusIcon'; // You'll need an SVG for the uterus icon
 
@@ -11,18 +11,30 @@ const Playboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [mazo, setMazo] = useState(null);
+  const [mazoHasCards, setMazoHasCards] = useState(true);
+  
   useEffect(() => {
       const fetchData = async () => {
           try {
-              const response = await fetch('http://localhost:3000/tarjetas?isRandomUnique=y');
+              const getMazoRequest = await fetch(`http://localhost:3000/mazos/${id}`);
               
-              if (!response.ok) {
-                  throw new Error(`HTTP error: Status ${response.status}`);
+              if (!getMazoRequest.ok) {
+                  throw new Error(`HTTP error: Status ${getMazoRequest.status}`);
               }
               
-              const jsonData = await response.json(); // Parse the JSON response
-              console.log(jsonData);
-              setTarjeta(jsonData);
+              const mazoRetrieved = await getMazoRequest.json(); // Parse the JSON response
+              // console.log(mazoRetrieved);
+              // setMazo(mazoRetrieved);
+              //console.log(mazoRetrieved);
+              //console.log(mazoRetrieved.cards.length);
+              if (mazoRetrieved.cards.length > 0) {
+                setMazo(mazoRetrieved);
+                setTarjeta(mazoRetrieved.cards[0]);
+              } else {
+                setMazoHasCards(false);
+              }
+
               setError(null);
           } catch (err) {
               setError(err.message);
@@ -40,8 +52,22 @@ const Playboard = () => {
       return <div>Loading...</div>;
   }
 
+  if (!mazoHasCards) {
+    return <div>Error: Mazo has no cards</div>;
+  }
+
   if (error) {
       return <div>Error: {error}</div>;
+  }
+
+  const getNextQuestion = () => {
+    console.log(mazo);
+    if (mazo.cards) {
+      setMazo(mazo.cards.shift());
+      setTarjeta(mazo.cards[0]);
+    } else {
+      setMazoHasCards(false);
+    }
   }
 
   return (
@@ -70,7 +96,7 @@ const Playboard = () => {
               <path d="M12 2a5 5 0 0 0-5 5c0 4-5 5-5 5s4 1 4 4a5 5 0 0 0 10 0c0-3 4-4 4-4s-5-1-5-5a5 5 0 0 0-5-5z"></path>
             </svg>
           </div>
-          <h1 className="flex text-2xl items-center font-bold text-gray-800">GINECOLOGÍA ENARM</h1>
+          <h1 className="flex text-2xl items-center font-bold text-gray-800">{mazo.title}</h1>
         </div>
 
         {/* Content Card Area */}
@@ -79,13 +105,13 @@ const Playboard = () => {
           {/* Main Question Text */}
           <div className="flex items-center justify-center h-full">
             <p className="text-gray-700 text-center text-3xl italic">
-              {tarjeta[0].question}
+              {tarjeta.question}
             </p>
           </div>
 
           {/* Flip Button */}
           <div className="flex justify-center mt-6">
-            <button className="px-6 py-2 border border-gray-400 rounded-lg text-gray-600 hover:bg-gray-50 text-lg font-bold shadow-md">
+            <button onClick={getNextQuestion} className="px-6 py-2 border border-gray-400 rounded-lg text-gray-600 hover:bg-gray-50 text-lg font-bold shadow-md">
               Girar
             </button>
           </div>
