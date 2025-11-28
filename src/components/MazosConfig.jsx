@@ -1,10 +1,10 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 // Assuming you have an SVG file for the "Ginecología" icon available in your project, e.g., in src/assets/uterus-icon.svg
 // For this example, we'll use a placeholder div or a simple emoji for the icon.
 
-const AppDesignComponent = () => {
-  const { title } = useParams();
+const MazosConfig = () => {
+  const { id } = useParams();
   
   return (
     // Main container acting as the app screen
@@ -35,13 +35,13 @@ const AppDesignComponent = () => {
         <div className="mb-4">
             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
         </div>
-        <h1 className="text-xl font-semibold text-gray-800 mb-16">{title}</h1>
+        <h1 className="text-xl font-semibold text-gray-800 mb-16">{id}</h1>
 
         {/* Buttons Section */}
         <div className="flex flex-col space-y-4 w-full max-w-sm px-4">
-          <button className="py-3 px-4 bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium rounded-lg shadow-sm border border-blue-200 transition duration-150 ease-in-out">
+          <Link to={"/playboard/"+id} className="py-3 px-4 bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium rounded-lg shadow-sm border border-blue-200 transition duration-150 ease-in-out">
             Estudiar flashcards
-          </button>
+          </Link>
           <button className="py-3 px-4 bg-gray-50 hover:bg-gray-100 text-gray-700 font-medium rounded-lg shadow-sm border border-gray-200 transition duration-150 ease-in-out">
             Añadir flashcard
           </button>
@@ -54,4 +54,4 @@ const AppDesignComponent = () => {
   );
 };
 
-export default AppDesignComponent;
+export default MazosConfig;

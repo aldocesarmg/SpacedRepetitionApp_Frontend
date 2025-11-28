@@ -8,7 +8,7 @@ const Sidebar = () => {
   const navItems = [
     { name: 'Inicio', icon: 'Home', active: true, componentName: '/' },
     { name: 'Biblioteca', icon: 'Library', active: false, componentName: '/library' },
-    { name: 'Compartido', icon: 'Share2', active: false, componentName: '/study'  }, // this is only for testing
+    { name: 'Compartido', icon: 'Share2', active: false, componentName: '/playboard'  }, // this is only for testing
     { name: 'Amigos', icon: 'Users', active: false },
     { name: 'Favoritos', icon: 'Star', active: false },
     { name: 'Flascard', icon: 'Plus', active: false },

@@ -4,9 +4,10 @@ import Home from './components/Home.jsx';
 import Library from './components/Library.jsx';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
-import Study from './components/Study.jsx';
+import MazosConfig from './components/MazosConfig.jsx';
 
 import { Routes, Route } from 'react-router-dom';
+import Playboard from './components/Playboard.jsx';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Route path="/" element={<Dashboard />} >
           <Route index element={<Home />} />
           <Route path="/library" element={<Library />} />
-          <Route path="/study/:title" element={<Study />} />
+          <Route path="/mazosConfig/:id" element={<MazosConfig />} />
+          <Route path="/playboard/:id" element={<Playboard />} />
         </Route>
 
         <Route path="/login" element={<Login />} />

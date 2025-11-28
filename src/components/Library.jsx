@@ -1,4 +1,5 @@
 import CardMazos from "./CardMazos";
+import { useState, useEffect } from "react";
 
 const Library = () => {
     // State for the data, loading status, and any errors
@@ -60,9 +61,10 @@ const Library = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 {mazos.map((item) => (
                     <CardMazos 
-                        title={item.title} 
-                        terms={item.terms} 
-                        bgColor="bg-blue-100" 
+                        id={item._id}
+                        title={item.title}
+                        terms={item.terms}
+                        bgColor={item.color}
                     />
             ))}
             </div>
