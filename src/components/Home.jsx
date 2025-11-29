@@ -1,16 +1,59 @@
+import { useState, useEffect } from "react";
 import CardMazos from "./CardMazos";
 import FireIcon from "./icons/FireIcon";
 
 // Componente MainContent (Contenido principal)
 const Home = () => {
+  // State for the data, loading status, and any errors
+  const [mazos, setMazos] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const getMazosResponse = await fetch('http://localhost:3000/mazos?limit=3');
+              
+              if (!getMazosResponse.ok) {
+                  throw new Error(`HTTP error: Status ${getMazosResponse.status}`);
+              }
+              
+              const retrievedMazos = await getMazosResponse.json(); // Parse the JSON response
+              setMazos(retrievedMazos);
+              setError(null);
+          } catch (err) {
+              setError(err.message);
+              setMazos(null);
+          } finally {
+              setIsLoading(false); // Set loading to false once the request is complete
+          }
+      };
+
+      fetchData();
+  }, []); // The empty dependency array ensures this runs only once when the component mounts
+
+  // Conditional rendering based on the fetch status
+  if (isLoading) {
+      return <div>Loading...</div>;
+  }
+
+  if (error) {
+      return <div>Error: {error}</div>;
+  }
+
   return (
     <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
       <h1 className="text-3xl font-bold text-gray-800 mb-4 pl-4 flex justify-start">Recientes</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <CardMazos title="PEDIATRIA ENARM" terms="240 términos" bgColor="bg-blue-100" />
-        <CardMazos title="GINECOLOGÍA ENARM" terms="543 términos" bgColor="bg-pink-100" />
-        <CardMazos title="MI ENARM" terms="876 términos" bgColor="bg-yellow-100" />
+        {mazos.map((item) => (
+                    <CardMazos 
+                        id={item._id}
+                        title={item.title}
+                        terms={item.terms}
+                        bgColor={item.color}
+                    />
+            ))}
       </div>
 
       <h1 className="text-3xl font-bold text-gray-800 mb-6 pl-4 flex justify-start">Estadísticas</h1>

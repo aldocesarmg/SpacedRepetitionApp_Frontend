@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 const Playboard = () => {
   const { id } = useParams();
 
+  const [indexCurrentTarjeta, setIndexCurrentTarjeta] = useState(0);
   const [tarjeta, setTarjeta] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,13 +25,11 @@ const Playboard = () => {
               }
               
               const mazoRetrieved = await getMazoRequest.json(); // Parse the JSON response
-              // console.log(mazoRetrieved);
-              // setMazo(mazoRetrieved);
-              //console.log(mazoRetrieved);
-              //console.log(mazoRetrieved.cards.length);
+
               if (mazoRetrieved.cards.length > 0) {
                 setMazo(mazoRetrieved);
-                setTarjeta(mazoRetrieved.cards[0]);
+                setTarjeta(mazoRetrieved.cards[indexCurrentTarjeta]);
+                setIndexCurrentTarjeta(indexCurrentTarjeta + 1);
               } else {
                 setMazoHasCards(false);
               }
@@ -60,11 +59,13 @@ const Playboard = () => {
       return <div>Error: {error}</div>;
   }
 
+  console.log(mazo);
+
   const getNextQuestion = () => {
-    console.log(mazo);
-    if (mazo.cards) {
-      setMazo(mazo.cards.shift());
-      setTarjeta(mazo.cards[0]);
+    setIndexCurrentTarjeta(indexCurrentTarjeta + 1);
+
+    if (mazo.cards[indexCurrentTarjeta]) {
+      setTarjeta(mazo.cards[indexCurrentTarjeta]);
     } else {
       setMazoHasCards(false);
     }

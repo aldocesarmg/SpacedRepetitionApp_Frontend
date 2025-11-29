@@ -1,20 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { House, Library, Repeat2, Users, HeartPlus, FilePlusCorner, FolderPlus, Settings, LogOut, BadgeQuestionMark } from 'lucide-react';
 
 // Componente Sidebar (Barra lateral)
 const Sidebar = () => {
   let [selectedItem, setSelectedItem] = useState('Home');
 
   const navItems = [
-    { name: 'Inicio', icon: 'Home', active: true, componentName: '/' },
-    { name: 'Biblioteca', icon: 'Library', active: false, componentName: '/library' },
-    { name: 'Compartido', icon: 'Share2', active: false, componentName: '/playboard'  }, // this is only for testing
-    { name: 'Amigos', icon: 'Users', active: false },
-    { name: 'Favoritos', icon: 'Star', active: false },
-    { name: 'Flascard', icon: 'Plus', active: false },
-    { name: 'Carpeta', icon: 'Folder', active: false },
-    { name: 'Ajustes', icon: 'Settings', active: false },
-    { name: 'Cerrar sesión', icon: 'LogOut', active: false },
+    { name: 'Inicio', icon: <House />, active: true, componentName: '/' },
+    { name: 'Biblioteca', icon: <Library />, active: false, componentName: '/library' },
+    { name: 'Compartido', icon: <Repeat2 />, active: false, componentName: '/playboard'  }, // this is only for testing
+    { name: 'Amigos', icon: <Users />, active: false },
+    { name: 'Favoritos', icon: <HeartPlus />, active: false },
+    { name: 'Nueva Tarjeta', icon: <FilePlusCorner />, active: false },
+    { name: 'Nueva Carpeta', icon: <FolderPlus />, active: false },
+    { name: 'Ajustes', icon: <Settings />, active: false },
+    { name: 'Cerrar sesión', icon: <LogOut />, active: false },
   ];
 
   return (
@@ -42,6 +43,7 @@ const Sidebar = () => {
               }`}
             >
               {/* Icon Placeholder, replace with actual icons */}
+              {item.icon}
               <span className="w-5 h-5 mr-3"></span> 
               {item.name}
             </Link>
@@ -49,7 +51,7 @@ const Sidebar = () => {
         </nav>
       </div>
       <div className="flex items-center p-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm font-medium cursor-pointer">
-        {/* Help Icon Placeholder */}
+        <BadgeQuestionMark />
         <span className="w-5 h-5 mr-3"></span>
         Ayuda
       </div>
